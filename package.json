@@ -2,12 +2,23 @@
   "name": "backend-platform",
   "version": "1.0.0",
   "description": "Learning-focused backend platform with scalable architecture.",
-  "keywords": ["backend", "nodejs", "javascript", "api", "learning", "platform"],
-
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/index.js"
   },
+  "keywords": [
+    "backend",
+    "nodejs",
+    "javascript",
+    "api",
+    "learning",
+    "platform"
+  ],
   "author": "Karunasindhu Adak",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.11",
+    "prettier": "^3.8.1"
+  }
 }

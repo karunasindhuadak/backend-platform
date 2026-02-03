@@ -14,4 +14,17 @@ app.use(express.urlencoded({ extended: true})) // This allows your backend to re
 app.use(express.static("public"))   // express.static("public") allows users to directly access files stored in the public folder through a URL.
 app.use(cookieParser())     // cookieParser() lets your backend read login/session data stored in browser cookies.
 
+
+
+// routes imports
+import userRouter from "./routes/user.routes.js"
+
+
+// routes declaration
+
+app.use("/api/v1/users", userRouter)
+
+
+
+
 export default app;

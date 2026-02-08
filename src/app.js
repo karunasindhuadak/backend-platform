@@ -12,7 +12,7 @@ app.use(cors({           // “For every incoming request, run this helper (midd
 app.use(express.json({ limit: "16kb"}))  // This allows your backend to read JSON data sent by the frontend, up to 16 KB in size.
 app.use(express.urlencoded({ extended: true})) // This allows your backend to read form-type data sent in requests.
 app.use(express.static("public"))   // express.static("public") allows users to directly access files stored in the public folder through a URL.
-app.use(cookieParser())     // cookieParser() lets your backend read login/session data stored in browser cookies.
+app.use(cookieParser())     // cookie-parser reads cookies from the incoming HTTP request and makes them easy to use in your Express app.
 
 
 

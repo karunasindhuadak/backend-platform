@@ -1,4 +1,7 @@
 import dotenv from "dotenv";
+dotenv.config({
+  path: "./.env",
+});
 import connectDB from "./db/index.js";
 import app from "./app.js";
 
@@ -6,9 +9,7 @@ import app from "./app.js";
 // import mongoose from "mongoose";
 // import {DB_NAME} from "./constants.js";
 
-dotenv.config({
-  path: "./.env",
-});
+
 
 const Port = process.env.PORT || 5000;
 

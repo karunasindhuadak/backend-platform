@@ -41,12 +41,23 @@ const userSchema = new Schema(
         },
 
         avatar: {
-            type: String, // cloudinary url
-            required: true
+            url: {
+                type: String, // cloudinary url
+                required: true
+            },
+            publicId : {
+                type: String,
+                required: true
+            }
         },
 
         coverImage: {
-            type: String, // cloudinary url
+            url: {
+                type: String, // cloudinary url
+            },
+            publicId : {
+                type: String,
+            }
         },
 
         refreshToken: {

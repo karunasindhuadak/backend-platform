@@ -287,7 +287,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
 
   const oldAvatar = await User.findById(req.user?._id).select("avatar");
 
-  console.log("OldAvatar: ", oldAvatar)
+//   console.log("OldAvatar: ", oldAvatar)
 
   const avatar = await uploadOnCloudinary(avatarLocalPath);
 
@@ -313,7 +313,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
 
   const result = await deleteFromCloudinary(oldAvatar?.avatar?.publicId)
 
-  console.log("Cloudinary deletion result: ", result)
+//   console.log("Cloudinary deletion result: ", result)
 
   return res
     .status(200)
@@ -331,7 +331,7 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
 
   const oldCoverImage = await User.findById(req.user?._id).select("coverImage");
 
-  console.log("OldCoverImage: ", oldCoverImage)
+//   console.log("OldCoverImage: ", oldCoverImage)
 
   const coverImage = await uploadOnCloudinary(coverImageLocalPath);
 
@@ -359,7 +359,7 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
 
   const result = await deleteFromCloudinary(oldCoverImage?.coverImage?.publicId)
 
-  console.log("Cloudinary deletion result: ", result)
+//   console.log("Cloudinary deletion result: ", result)
 
   return res
     .status(200)

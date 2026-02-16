@@ -110,6 +110,10 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new ApiError(400, "username or email is required");
   }
 
+  if(!password) {
+    throw new ApiError(400, "password is required")
+  }
+
   const user = await User.findOne({
     $or: [{ username }, { email }],
   });
@@ -127,7 +131,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const { accessToken, refreshToken } =
     await generateAccessTokenAndRefreshToken(user._id);
 
-  const loggedInUser = await User.findById(user._id);
+  const loggedInUser = await User.findById(user._id).select("-password -refreshToken");
 
   const options = {
     httpOnly: true,
@@ -200,8 +204,11 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
       throw new ApiError(401, "Invalid refresh token or expired refresh token");
     }
 
-    const { accessToken, newRefreshToken } =
-      await user.generateAccessTokenAndRefreshToken();
+    const { accessToken, refreshToken: newRefreshToken } =
+      await generateAccessTokenAndRefreshToken(user._id);
+
+    // console.log("AccessToken: ", accessToken)
+    // console.log("NewRefreshToken: ", newRefreshToken)
 
     const options = {
       httpOnly: true,
@@ -215,7 +222,10 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
       .json(
         new ApiResponse(
           200,
-          { accessToken, refreshToken: newRefreshToken },
+          { 
+            accessToken, 
+            refreshToken: newRefreshToken
+          },
           "Token refresh succesfully"
         )
       );
@@ -367,13 +377,13 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, user, "Coverimage updated succesfully"));
 });
 
-const getUserProfile = asyncHandler(async (req, res) => {
+const getUserChannelProfile = asyncHandler(async (req, res) => {
   const {username} = req.params
   if(!username?.trim()) {
     throw new ApiError(401, "Username not exist")
   }
 
-  const channal = await User.aggregate([
+  const channel = await User.aggregate([
     {
       $match: {
         username: username.toLowerCase(),
@@ -426,13 +436,13 @@ const getUserProfile = asyncHandler(async (req, res) => {
     }
   ]);
 
-  if(!channal || channal.length === 0) {
+  if(!channel || channel.length === 0) {
     throw new ApiError(404, "User not found")
   }
 
   return res
   .status(200)
-  .json(new ApiResponse(200, channal[0], "User profile fetched succesfully"))
+  .json(new ApiResponse(200, channel[0], "User profile fetched succesfully"))
 })
 
 const getWatchHistory = asyncHandler(async (req, res) => {
@@ -499,6 +509,6 @@ export {
   updateUserDetails,
   updateUserAvatar,
   updateUserCoverImage,
-  getUserProfile,
+  getUserChannelProfile,
   getWatchHistory,
 };

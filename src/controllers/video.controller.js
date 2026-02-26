@@ -53,6 +53,8 @@ const getAllVideos = asyncHandler(async (req, res) => {
         filter.owner = userId
     }
 
+    console.log("Filter: ", filter)
+
     // build sorting object based on sortBy and sortType
 
     const sort = {}
@@ -60,6 +62,8 @@ const getAllVideos = asyncHandler(async (req, res) => {
     if(sortBy && sortType) {
         sort[sortBy] = sortType === "asc" ? 1 : -1
     }
+
+    console.log("Sort: ", sort)
 
     // calculate how many documents to skip for pagination
 
